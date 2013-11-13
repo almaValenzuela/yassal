@@ -60,6 +60,60 @@ public class MOAdaptativo {
 		return lista;
 	}
 	
+	/*
+	 * Adaptative Merge sort
+	 */	
+	public int[] adaptativeMergingSort(int[] lista)
+	{
+		 final int N = lista.length;
+         if(N<=1) 
+         	return lista;
+		
+		int superposicion=0;
+        for(int i=0;i<lista.length-1;i++)
+        {	
+        	 if(lista[i]>lista[i+1])
+        	 {
+        		 superposicion=i;	
+        	 }
+        }
+        System.out.println("superposicion: "+superposicion );
+        
+        int[] izq = Arrays.copyOfRange(lista, 0, superposicion);//Xizq
+        int[] der = Arrays.copyOfRange(lista, superposicion, N);//Yder 
+		mergingAdaptative(izq);
+		mergingAdaptative(der);
+		combinarAdaptative(lista, izq, der);
+		return lista;
+	}
+	
+    public int[] mergingAdaptative(int[] lista) {    	
+        final int N = lista.length;
+        if(N<=1) 
+        	return lista;
+        
+        int mitad=N/2;
+        	 
+        int[] izq = Arrays.copyOfRange(lista, 0, mitad);//Xizq
+        int[] der = Arrays.copyOfRange(lista, mitad, N);//Yder
+        mergingAdaptative(izq);
+        mergingAdaptative(der);
+        combinarAdaptative(lista, izq, der);
+    	return lista;
+    }
+    
+    public int[] combinarAdaptative(int[] lista, int[] izq, int[] der) 
+    {
+        int i = 0;
+        int j = 0;
+        for(int k=0; k<lista.length;k++) {
+            if(i>=izq.length) { lista[k]=der[j++]; continue; }
+            if(j>=der.length) { lista[k]=izq[i++]; continue; }
+            lista[k]=(izq[i]<der[j])?izq[i++]:der[j++];
+        }
+        return lista;
+    }	
+	
 	public static void main(String[] args) {
 		MOComparacionDividirConquistar orden = new MOComparacionDividirConquistar();
 		Random r=new Random();
