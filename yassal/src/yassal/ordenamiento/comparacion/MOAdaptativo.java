@@ -113,6 +113,31 @@ public class MOAdaptativo {
         }
         return lista;
     }	
+    
+    /*
+	 * Straight Insertion Sort
+	 */	
+    public int [] straightInsertionSort(int lista[])
+	{
+		int i=0;
+		int t=0;
+		final int N = lista.length;
+        if(N<=1) 
+        	return lista;
+        
+		for(int j=1;j<N;j++)
+		{
+			i=j-1;
+			t=lista[j];
+			while(t<lista[i])
+			{
+				lista[i+1]=lista[i]; 
+				i=i-1; 
+			}	
+			lista[i+1]=t;
+		}
+		return lista;
+	}
 	
 	public static void main(String[] args) {
 		MOComparacionDividirConquistar orden = new MOComparacionDividirConquistar();
